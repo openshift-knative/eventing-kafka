@@ -4,7 +4,7 @@
 CGO_ENABLED=0
 GOOS=linux
 # Ignore errors if there are no images.
-CORE_IMAGES=$(shell find ./cmd -name main.go ! -path "./cmd/source/controller/*" ! -path "./cmd/channel/distributed/controller/*" ! -path "./cmd/channel/consolidated/controller/*" | sed 's/main.go//')
+CORE_IMAGES=$(shell find ./cmd -name main.go ! -path "./cmd/source/controller/*" ! -path "./cmd/channel/distributed/controller/*" ! -path "./cmd/channel/consolidated/controller/*" ! -path "./cmd/channel/consolidated/dispatcher/*" ! -path "./cmd/channel/distributed/dispatcher/*" | sed 's/main.go//')
 TEST_IMAGES=$(shell find ./test/test_images -mindepth 1 -maxdepth 1 -type d 2> /dev/null)
 KO_DOCKER_REPO=${DOCKER_REPO_OVERRIDE}
 BRANCH=
@@ -19,10 +19,12 @@ install:
 	for img in $(CORE_IMAGES); do \
 		go install $$img ; \
 	done
-	#Build the controllers with a prefix to avoid problems
+	#Build the controllers/dispatcher with a prefix to avoid problems
 	go build -o $(GOPATH)/bin/kafka_source_controller ./cmd/source/controller/
-	go build -o $(GOPATH)/bin/distributed_controller ./cmd/channel/distributed/controller/
 	go build -o $(GOPATH)/bin/consolidated_controller ./cmd/channel/consolidated/controller/
+	go build -o $(GOPATH)/bin/consolidated_dispatcher ./cmd/channel/consolidated/dispatcher/
+	go build -o $(GOPATH)/bin/distributed_controller ./cmd/channel/distributed/controller/
+	go build -o $(GOPATH)/bin/distributed_dispatcher ./cmd/channel/distributed/dispatcher/
 .PHONY: install
 
 test-install:
@@ -63,7 +65,9 @@ generate-dockerfiles:
 	./openshift/ci-operator/generate-dockerfiles.sh openshift/ci-operator/knative-images $(CORE_IMAGES)
 	./openshift/ci-operator/generate-dockerfiles.sh openshift/ci-operator/knative-images kafka_source_controller
 	./openshift/ci-operator/generate-dockerfiles.sh openshift/ci-operator/knative-images distributed_controller
+	./openshift/ci-operator/generate-dockerfiles.sh openshift/ci-operator/knative-images distributed_dispatcher
 	./openshift/ci-operator/generate-dockerfiles.sh openshift/ci-operator/knative-images consolidated_controller
+	./openshift/ci-operator/generate-dockerfiles.sh openshift/ci-operator/knative-images consolidated_dispatcher
 
 	rm -rf openshift/ci-operator/knative-test-images/*
 	./openshift/ci-operator/generate-dockerfiles.sh openshift/ci-operator/knative-test-images $(TEST_IMAGES)

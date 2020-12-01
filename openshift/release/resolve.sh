@@ -20,13 +20,13 @@ function resolve_resources(){
     # 4. Remove empty lines
     sed -e "s+\(.* image: \)\(knative.dev\)\(.*/\)\(test/\)\(.*\)+\1\2 \3\4test-\5+g" \
         -e "s+ko://++" \
-        -e "s+knative.dev/eventing-kafka/cmd/source/receive_adapter+${image_prefix}source-adapter${image_tag}+" \
+        -e "s+knative.dev/eventing-kafka/cmd/source/receive_adapter+${image_prefix}receive-adapter${image_tag}+" \
         -e "s+knative.dev/eventing-kafka/cmd/source/controller+${image_prefix}source-controller${image_tag}+" \
-        -e "s+knative.dev/eventing-kafka/cmd/channel/consolidated/controller+${image_prefix}channel-controller${image_tag}+" \
-        -e "s+knative.dev/eventing-kafka/cmd/channel/consolidated/dispatcher+${image_prefix}channel-dispatcher${image_tag}+" \
+        -e "s+knative.dev/eventing-kafka/cmd/channel/consolidated/controller+${image_prefix}consolidated-controller${image_tag}+" \
+        -e "s+knative.dev/eventing-kafka/cmd/channel/consolidated/dispatcher+${image_prefix}consolidated-dispatcher${image_tag}+" \
         -e "s+knative.dev/eventing-kafka/cmd/webhook+${image_prefix}channel-webhook${image_tag}+" \
-        -e "s+knative.dev/eventing-kafka/cmd/channel/distributed/controller+${image_prefix}distributed-channel-controller${image_tag}+" \
-        -e "s+knative.dev/eventing-kafka/cmd/channel/distributed/receiver+${image_prefix}distributed-receiver${image_tag}+" \
+        -e "s+knative.dev/eventing-kafka/cmd/channel/distributed/controller+${image_prefix}distributed-controller${image_tag}+" \
+        -e "s+knative.dev/eventing-kafka/cmd/channel/distributed/receiver+${image_prefix}receiver${image_tag}+" \
         -e "s+knative.dev/eventing-kafka/cmd/channel/distributed/dispatcher+${image_prefix}distributed-dispatcher${image_tag}+" \
         -e "s+\(.* image: \)\(knative.dev\)\(.*/\)\(.*\)+\1${image_prefix}\4${image_tag}+g" \
         -e '/^[ \t]*#/d' \
