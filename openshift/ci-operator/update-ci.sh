@@ -24,18 +24,7 @@ CONFIG=$CONFIGDIR/openshift-knative-eventing-kafka-release-v$VERSION
 CURDIR=$(dirname $0)
 $CURDIR/generate-ci-config.sh knative-$VERSION 4.6 > ${CONFIG}__46.yaml
 
-# Append missing lines to the mirror file.
-[ -n "$(tail -c1 $MIRROR)" ] && echo >> $MIRROR # Make sure there's a newline
-for IMAGE in $*; do
-    NAME=knative-eventing-sources-$(basename $IMAGE | sed 's/_/-/')
-    echo "Adding $NAME to mirror file"
-    LINE="registry.svc.ci.openshift.org/openshift/knative-v$VERSION:$NAME quay.io/openshift-knative/$NAME:v$VERSION"
-    # Add $LINE if not already present
-    grep -q "^$LINE\$" $MIRROR || echo "$LINE"  >> $MIRROR
-done
-
 # Switch to openshift/release to generate PROW files
-
 cd $OPENSHIFT
 echo "Generating PROW files in $OPENSHIFT"
 make jobs
