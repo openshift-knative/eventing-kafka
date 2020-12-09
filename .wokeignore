@@ -1,3 +1,0 @@
-vendor/*
-third_party/*
-test/config/100-strimzi-cluster-operator-0.20.0.yaml
