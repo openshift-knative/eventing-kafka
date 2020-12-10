@@ -26,7 +26,7 @@ function resolve_resources(){
         -e "s+knative.dev/eventing-kafka/cmd/source/controller+${image_prefix}source-controller${image_tag}+" \
         -e "s+knative.dev/eventing-kafka/cmd/channel/consolidated/controller+${image_prefix}consolidated-controller${image_tag}+" \
         -e "s+knative.dev/eventing-kafka/cmd/channel/consolidated/dispatcher+${image_prefix}consolidated-dispatcher${image_tag}+" \
-        -e "s+knative.dev/eventing-kafka/cmd/webhook+${image_prefix}channel-webhook${image_tag}+" \
+        -e "s+knative.dev/eventing-kafka/cmd/webhook+${image_prefix}webhook${image_tag}+" \
         -e "s+knative.dev/eventing-kafka/cmd/channel/distributed/controller+${image_prefix}distributed-controller${image_tag}+" \
         -e "s+knative.dev/eventing-kafka/cmd/channel/distributed/receiver+${image_prefix}receiver${image_tag}+" \
         -e "s+knative.dev/eventing-kafka/cmd/channel/distributed/dispatcher+${image_prefix}distributed-dispatcher${image_tag}+" \
