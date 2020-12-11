@@ -179,7 +179,7 @@ function create_sasl_secrets() {
 function run_e2e_tests(){
   header "Testing the KafkaChannel with no AUTH"
 
-  the source tests REQUIRE the secrets, hence we create it here:
+  # the source tests REQUIRE the secrets, hence we create it here:
   create_auth_secrets || return 1
 
   oc get ns ${SYSTEM_NAMESPACE} 2>/dev/null || SYSTEM_NAMESPACE="knative-eventing"
