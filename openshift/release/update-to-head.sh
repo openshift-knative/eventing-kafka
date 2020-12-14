@@ -4,7 +4,7 @@
 # Usage: update-to-head.sh
 
 set -e
-REPO_NAME=`basename $(git rev-parse --show-toplevel)`
+REPO_NAME="eventing-kafka"
 
 # Reset release-next to upstream/master.
 git fetch upstream master
