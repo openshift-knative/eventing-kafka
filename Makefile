@@ -20,7 +20,7 @@ install:
 		go install $$img ; \
 	done
 	#Build the controllers/dispatcher with a prefix to avoid problems
-	go build -o $(GOPATH)/bin/kafka_source_controller ./cmd/source/controller/
+	go build -o $(GOPATH)/bin/source_controller ./cmd/source/controller/
 	go build -o $(GOPATH)/bin/consolidated_controller ./cmd/channel/consolidated/controller/
 	go build -o $(GOPATH)/bin/consolidated_dispatcher ./cmd/channel/consolidated/dispatcher/
 	go build -o $(GOPATH)/bin/distributed_controller ./cmd/channel/distributed/controller/
@@ -63,7 +63,7 @@ test-e2e-local:
 generate-dockerfiles:
 	rm -rf openshift/ci-operator/knative-images/*
 	./openshift/ci-operator/generate-dockerfiles.sh openshift/ci-operator/knative-images $(CORE_IMAGES)
-	./openshift/ci-operator/generate-dockerfiles.sh openshift/ci-operator/knative-images kafka_source_controller
+	./openshift/ci-operator/generate-dockerfiles.sh openshift/ci-operator/knative-images source_controller
 	./openshift/ci-operator/generate-dockerfiles.sh openshift/ci-operator/knative-images distributed_controller
 	./openshift/ci-operator/generate-dockerfiles.sh openshift/ci-operator/knative-images distributed_dispatcher
 	./openshift/ci-operator/generate-dockerfiles.sh openshift/ci-operator/knative-images consolidated_controller
